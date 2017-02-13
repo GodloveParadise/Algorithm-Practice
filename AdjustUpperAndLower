@@ -1,0 +1,30 @@
+/*************************
+[腾讯校招]把一个字符串的大写字母放到字符串的后面，各个字符法相对位置不变，求不能申请额外的空间。
+**********************************/
+void AdjustUpperAndLower(char* str)
+{
+	for (int ii = 0; ii < strlen(str); ii++)
+	{
+		if ('a' <= str[ii] && str[ii] <= 'z'  )
+		{
+			char  temp = str[ii];
+			int jj = 0;
+			for (jj = ii - 1; jj >= 0; jj--)
+			{
+				if ('A' <= str[jj] && str[jj] <= 'Z')
+				{
+					str[jj + 1] = str[jj];
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			str[jj + 1] = temp;
+
+		}
+		
+	}
+
+}
