@@ -1,0 +1,57 @@
+/******************************
+优酷面试题：整形数组重组，求最小值。
+题目：含有N个元素的整形数组，将这个n个元素重新组合，求出最小的数，如【321,3,32】，最小的数为321323
+*********************************/
+/***********************
+思想：
+1.将整数数组转化为字符串数组(避免组合后超过最大整数范围)
+2.对字符串数组进行冒泡排序(可以采用快速排序)
+比较原则是：  num[ii]+num[ii+1]>num[ii+1]+num[ii]（加号表示字符串的拼接）  则交换
+num[ii]+num[ii+1]<num[ii+1]+num[ii]                      不交换
+3.最后排序的数组按照顺序组合后即是最小的组合数。
+测试用例：
+1.[321,3,32]
+2.[12,1212,2,13]
+************************/
+string reArrangeInteger(vector<int> nums)
+{
+	if (nums.size()<0)
+	{
+		return "0";
+	}
+	vector<string> stringNums;
+	//转换成字符串数组
+	for (int ii = 0; ii < nums.size(); ii++)
+	{
+		char buff[10];
+		_itoa_s(nums[ii], buff, 10);
+		stringNums.push_back(buff);
+
+	}
+	//冒泡排序
+	for (int ii = 0; ii < stringNums.size(); ii++)
+	{
+		for (int jj = stringNums.size() - 1; jj > ii; jj--)
+		{
+			string num1 = stringNums[jj - 1] + stringNums[jj];
+			string num2 = stringNums[jj] + stringNums[jj - 1];
+
+			if (num1.compare(num2)>0)
+			{
+				//交换
+				string temp = stringNums[jj - 1];
+				stringNums[jj - 1] = stringNums[jj];
+				stringNums[jj] = temp;
+			}
+
+		}
+	}
+	string result;
+	for (int ii = 0; ii < stringNums.size(); ii++)
+	{
+		result += stringNums[ii];
+	}
+	return result;
+
+
+}
